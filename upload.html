@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload Videos – WhitePhoenix</title>
+  <link rel="icon" type="image/jpeg" href="AppLogo.jpg">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root { --teal: #4ecdc4; --gold: #c9a96e; --bg: #060d10; --bg2: #080d12; --bg3: #0c1318; --text: #f0ece4; --muted: #7a8a9a; --border-teal: rgba(78,205,196,0.22); --border-gold: rgba(201,169,110,0.22); }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; background: radial-gradient(ellipse at 20% 30%, rgba(78,205,196,0.1) 0%, transparent 50%), radial-gradient(ellipse at 80% 70%, rgba(201,169,110,0.08) 0%, transparent 50%), #060d10; }
+    header { padding: 18px 60px; border-bottom: 1px solid var(--border-gold); display: flex; align-items: center; justify-content: space-between; background: rgba(6,13,16,0.9); backdrop-filter: blur(20px); }
+    .logo { font-family: 'Playfair Display', serif; font-size: 20px; letter-spacing: 2px; display: flex; align-items: center; gap: 10px; }
+    .logo span { color: var(--teal); }
+    .steps-bar { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted); }
+    .step-item { display: flex; align-items: center; gap: 6px; }
+    .step-dot { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; }
+    .step-dot.done { background: var(--teal); color: #060d10; }
+    .step-dot.active { background: var(--gold); color: #060d10; }
+    .step-dot.pending { background: rgba(122,138,154,0.2); color: var(--muted); border: 1px solid var(--border-teal); }
+    .step-line { width: 24px; height: 1px; background: var(--border-teal); }
+    .main { max-width: 800px; margin: 60px auto; padding: 0 40px; }
+    h1 { font-family: 'Playfair Display', serif; font-size: 32px; margin-bottom: 8px; background: linear-gradient(135deg, #f0ece4, var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .subtitle { color: var(--muted); font-size: 15px; margin-bottom: 40px; font-family: 'Playfair Display', serif; }
+    .upload-zone { border: 2px dashed var(--border-teal); border-radius: 16px; padding: 48px; text-align: center; margin-bottom: 32px; background: rgba(78,205,196,0.03); transition: border-color 0.3s; cursor: pointer; }
+    .upload-zone:hover { border-color: var(--teal); background: rgba(78,205,196,0.06); }
+    .upload-icon { font-size: 48px; margin-bottom: 16px; }
+    .upload-zone h3 { font-family: 'Playfair Display', serif; font-size: 20px; margin-bottom: 8px; }
+    .upload-zone p { color: var(--muted); font-size: 13px; font-family: 'Playfair Display', serif; }
+    .video-list { background: rgba(12,20,28,0.9); border: 1px solid var(--border-gold); border-radius: 16px; overflow: hidden; margin-bottom: 32px; }
+    .video-list-header { padding: 16px 24px; border-bottom: 1px solid var(--border-gold); display: flex; justify-content: space-between; align-items: center; }
+    .video-list-header h3 { font-family: 'Playfair Display', serif; font-size: 16px; }
+    .video-count { background: var(--teal-glow); color: var(--teal); padding: 4px 12px; border-radius: 100px; font-size: 12px; font-weight: 600; background: rgba(78,205,196,0.15); }
+    .video-item { padding: 14px 24px; border-bottom: 1px solid rgba(78,205,196,0.08); display: flex; align-items: center; gap: 16px; }
+    .video-item:last-child { border-bottom: none; }
+    .video-thumb { width: 48px; height: 48px; background: rgba(78,205,196,0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+    .video-info { flex: 1; }
+    .video-name { font-size: 14px; font-weight: 500; margin-bottom: 4px; font-family: 'Playfair Display', serif; }
+    .video-meta { color: var(--muted); font-size: 12px; }
+    .video-status { color: var(--teal); font-size: 12px; font-weight: 600; }
+    .caption-tag { background: rgba(201,169,110,0.1); color: var(--gold); padding: 3px 10px; border-radius: 100px; font-size: 11px; border: 1px solid rgba(201,169,110,0.2); }
+    .btn { padding: 14px 36px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; border: none; font-family: 'Inter', sans-serif; letter-spacing: 0.5px; transition: all 0.25s; }
+    .btn-primary { background: linear-gradient(135deg, var(--teal), #3ab8b0); color: #060d10; }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(78,205,196,0.3); }
+    .actions { display: flex; justify-content: flex-end; gap: 16px; }
+    .btn-ghost { background: transparent; border: 1px solid var(--border-gold); color: var(--gold); }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo"><img src="AppLogo.jpg" alt="WhitePhoenix" style="height:32px;width:32px;border-radius:8px;">White<span>Phoenix</span></div>
+    <div class="steps-bar">
+      <div class="step-item"><div class="step-dot done">✓</div><span style="color:var(--teal)">Connect</span></div>
+      <div class="step-line"></div>
+      <div class="step-item"><div class="step-dot done">✓</div><span style="color:var(--teal)">Authorize</span></div>
+      <div class="step-line"></div>
+      <div class="step-item"><div class="step-dot active">3</div><span style="color:var(--gold)">Upload</span></div>
+      <div class="step-line"></div>
+      <div class="step-item"><div class="step-dot pending">4</div><span>Schedule</span></div>
+      <div class="step-line"></div>
+      <div class="step-item"><div class="step-dot pending">5</div><span>Post</span></div>
+      <div class="step-line"></div>
+      <div class="step-item"><div class="step-dot pending">6</div><span>Live</span></div>
+    </div>
+  </header>
+  <div class="main">
+    <h1>Upload Your Videos</h1>
+    <p class="subtitle">Add your video library. WhitePhoenix will cycle through them automatically in random order.</p>
+    <div class="upload-zone">
+      <div class="upload-icon">🎬</div>
+      <h3>Drop your videos here</h3>
+      <p>Supports MP4, MOV, AVI — up to 500MB per file</p>
+    </div>
+    <div class="video-list">
+      <div class="video-list-header">
+        <h3>Video Queue</h3>
+        <span class="video-count">1,721 videos ready</span>
+      </div>
+      <div class="video-item">
+        <div class="video-thumb">🎥</div>
+        <div class="video-info">
+          <div class="video-name">luxury_lifestyle_001.mp4</div>
+          <div class="video-meta">15.2 MB · 0:28</div>
+        </div>
+        <span class="caption-tag">#luxurylifestyle</span>
+        <span class="video-status">✓ Ready</span>
+      </div>
+      <div class="video-item">
+        <div class="video-thumb">🎥</div>
+        <div class="video-info">
+          <div class="video-name">wealth_motivation_042.mp4</div>
+          <div class="video-meta">22.7 MB · 0:31</div>
+        </div>
+        <span class="caption-tag">#millionaire</span>
+        <span class="video-status">✓ Ready</span>
+      </div>
+      <div class="video-item">
+        <div class="video-thumb">🎥</div>
+        <div class="video-info">
+          <div class="video-name">exotic_cars_lifestyle.mp4</div>
+          <div class="video-meta">31.4 MB · 0:45</div>
+        </div>
+        <span class="caption-tag">#success</span>
+        <span class="video-status">✓ Ready</span>
+      </div>
+      <div class="video-item" style="opacity:0.5">
+        <div class="video-thumb">🎥</div>
+        <div class="video-info">
+          <div class="video-name">+ 1,718 more videos in queue...</div>
+          <div class="video-meta">Randomized order · Auto-cycling</div>
+        </div>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="btn btn-ghost" onclick="window.location.href="authorize.html"">Back</button>
+      <button class="btn btn-primary" onclick="window.location.href="schedule.html"">Continue to Schedule →</button>
+    </div>
+  </div>
+</body>
+</html>
