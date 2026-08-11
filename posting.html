@@ -108,7 +108,7 @@ h1 .t{color:var(--teal);}
 .api-tag.gold{background:var(--gold-subtle);border:1px solid var(--border-gold);color:var(--gold);}
 .progress-wrap{margin:24px 0 6px;}
 .progress-bar{height:2px;background:var(--bg4);border-radius:100px;overflow:hidden;}
-.progress-fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--gold));border-radius:100px;animation:progressFill 2.5s ease forwards;--fill:65%;}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--teal),var(--gold));border-radius:100px;animation:progressFill 4s ease forwards;--fill:100%;}
 .progress-label{display:flex;justify-content:space-between;margin-top:10px;font-size:11px;color:var(--gold-light);letter-spacing:0.5px;}
 </style>
 </head>
@@ -150,21 +150,44 @@ h1 .t{color:var(--teal);}
       <span class="api-tag teal">video.upload</span>
     </div>
     <div class="api-step">
-      <div class="api-icon loading"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="animation:spin 1s linear infinite"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg></div>
+      <div class="api-icon loading" id="step3-icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="animation:spin 1s linear infinite"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg></div>
       <div class="api-body"><h4>Uploading via Content Posting API…</h4><p>Transferring video chunks to TikTok servers</p></div>
       <span class="api-tag gold">video.upload</span>
     </div>
     <div class="api-step">
-      <div class="api-icon wait">4</div>
-      <div class="api-body"><h4>Publish to Profile</h4><p>Video will appear publicly on @eric.rafael.gold</p></div>
+      <div class="api-icon wait" id="step4-icon">4</div>
+      <div class="api-body"><h4 id="step4-title">Publish to Profile</h4><p>Video will appear publicly on @eric.rafael.gold</p></div>
       <span class="api-tag gold">video.publish</span>
     </div>
     <div class="progress-wrap">
       <div class="progress-bar"><div class="progress-fill"></div></div>
-      <div class="progress-label"><span>Uploading…</span><span>65% complete</span></div>
+      <div class="progress-label"><span id="prog-label">Uploading…</span><span id="prog-pct">0%</span></div>
     </div>
   </div>
-  <button class="btn btn-teal fade-up-3" onclick="window.location.href='connected.html'">View Result →</button>
+  <button class="btn btn-teal fade-up-3" id="view-btn" style="opacity:0;pointer-events:none;transition:opacity 0.5s;" onclick="window.location.href='connected.html'">View Result →</button>
+  <script>
+    var pct = 0;
+    var interval = setInterval(function() {
+      pct += 1;
+      document.getElementById('prog-pct').textContent = pct + '%';
+      if (pct >= 100) {
+        clearInterval(interval);
+        document.getElementById('prog-label').textContent = 'Upload complete!';
+        var s3 = document.getElementById('step3-icon');
+        if(s3){s3.className='api-icon done';s3.innerHTML='<svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="2 6 5 9 10 3"/></svg>';s3.style.animation='none';}
+        document.getElementById('prog-pct').style.color = 'var(--teal)';
+        document.getElementById('prog-label').style.color = 'var(--teal)';
+        var s4 = document.getElementById('step4-icon');
+        if(s4){s4.className='api-icon done';s4.innerHTML='<svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="2 6 5 9 10 3"/></svg>';}
+        var s4t = document.getElementById('step4-title');
+        if(s4t){s4t.style.color='var(--teal)';}
+        var btn = document.getElementById('view-btn');
+        btn.style.opacity = '1';
+        btn.style.pointerEvents = 'auto';
+        setTimeout(function() { window.location.href = 'connected.html'; }, 1500);
+      }
+    }, 40);
+  </script>
 </div>
 </body>
 </html>
