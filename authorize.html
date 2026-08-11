@@ -1,89 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TikTok Authorization – WhitePhoenix</title>
-  <link rel="icon" type="image/jpeg" href="AppLogo.jpg">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <style>
-    :root { --teal: #4ecdc4; --gold: #c9a96e; --bg: #060d10; --text: #f0ece4; --muted: #7a8a9a; --border-teal: rgba(78,205,196,0.22); --border-gold: rgba(201,169,110,0.22); }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Inter', sans-serif; background: radial-gradient(ellipse at 60% 30%, rgba(201,169,110,0.1) 0%, transparent 55%), #060d10; color: var(--text); min-height: 100vh; }
-    header { padding: 18px 60px; border-bottom: 1px solid var(--border-gold); display: flex; align-items: center; justify-content: space-between; background: rgba(6,13,16,0.9); backdrop-filter: blur(20px); }
-    .logo { font-family: 'Playfair Display', serif; font-size: 20px; letter-spacing: 2px; display: flex; align-items: center; gap: 10px; }
-    .logo span { color: var(--teal); }
-    .steps-bar { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--muted); }
-    .step-item { display: flex; align-items: center; gap: 5px; }
-    .step-dot { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; flex-shrink: 0; }
-    .step-dot.done { background: var(--teal); color: #060d10; }
-    .step-dot.active { background: var(--gold); color: #060d10; }
-    .step-dot.pending { background: rgba(122,138,154,0.15); color: var(--muted); border: 1px solid var(--border-teal); }
-    .step-line { width: 16px; height: 1px; background: rgba(78,205,196,0.2); }
-    .main { display: flex; align-items: center; justify-content: center; min-height: calc(100vh - 60px); padding: 40px; }
-    .box { background: #1a1a2e; border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 48px 56px; max-width: 440px; width: 100%; text-align: center; }
-    .tt-header { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 32px; }
-    .tt-logo { font-size: 32px; }
-    .tt-name { font-size: 22px; font-weight: 700; color: #fff; letter-spacing: 1px; }
-    .divider { height: 1px; background: rgba(255,255,255,0.1); margin: 24px 0; }
-    .app-request { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
-    .app-icon img { width: 48px; height: 48px; border-radius: 12px; }
-    .app-info { text-align: left; }
-    .app-info h3 { font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 4px; }
-    .app-info p { font-size: 12px; color: rgba(255,255,255,0.5); }
-    .scope-list { text-align: left; margin-bottom: 28px; }
-    .scope-list h4 { font-size: 13px; color: rgba(255,255,255,0.6); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
-    .scope-item { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-size: 13px; color: rgba(255,255,255,0.8); }
-    .scope-icon { color: #69c9d0; font-size: 14px; }
-    .btn-authorize { width: 100%; padding: 15px; border-radius: 8px; font-size: 15px; font-weight: 700; cursor: pointer; border: none; font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #69c9d0, #ee1d52); color: #fff; margin-bottom: 12px; transition: all 0.25s; letter-spacing: 0.5px; }
-    .btn-authorize:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(105,201,208,0.3); }
-    .btn-deny { width: 100%; padding: 13px; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer; border: 1px solid rgba(255,255,255,0.2); font-family: 'Inter', sans-serif; background: transparent; color: rgba(255,255,255,0.6); transition: all 0.25s; }
-    .btn-deny:hover { border-color: rgba(255,255,255,0.4); color: #fff; }
-    .tt-footer { margin-top: 20px; font-size: 11px; color: rgba(255,255,255,0.3); }
-  </style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Authorize – WhitePhoenix</title>
+<link rel="icon" type="image/jpeg" href="AppLogo.jpg">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Raleway:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap');
+
+a,.btn,.btn:link,.btn:visited { text-decoration: none !important; }
+a:link, a:visited { color: inherit; }
+.btn-outline-gold,.btn-outline-gold:link,.btn-outline-gold:visited { color: var(--gold) !important; }
+.btn-outline-teal,.btn-outline-teal:link,.btn-outline-teal:visited { color: var(--teal) !important; }
+.btn-teal,.btn-teal:link,.btn-teal:visited { color: var(--bg) !important; }
+.btn-gold,.btn-gold:link,.btn-gold:visited { color: var(--bg) !important; }
+.btn-ghost,.btn-ghost:link,.btn-ghost:visited { color: var(--gold) !important; }
+/* GLOBAL LINK RESET DONE */
+:root {
+  --teal:#4ecdc4;--teal-light:#7eddd7;--teal-dark:#2ea89f;
+  --teal-glow:rgba(78,205,196,0.18);--teal-subtle:rgba(78,205,196,0.09);
+  --gold:#c9a96e;--gold-light:#dfc08e;--gold-dark:#9a7a48;
+  --gold-glow:rgba(201,169,110,0.18);--gold-subtle:rgba(201,169,110,0.09);
+  --bg:#05090c;--bg2:#080e14;--bg3:#0c141c;--bg4:#101c26;
+  --text:#f2ede6;--text-on-teal:#c9a96e;--text-dim:#4a5a6a;
+  --border-gold:rgba(201,169,110,0.22);--border-teal:rgba(78,205,196,0.22);
+  --border-dim:rgba(255,255,255,0.07);
+  --font-display:'Cinzel',serif;--font-body:'Raleway',sans-serif;--r:14px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+h1,h2,h3,h4{font-family:var(--font-display);letter-spacing:0.05em;}
+p,li,span,a,button,input,label,div{font-family:var(--font-body);}
+.wp-header{position:sticky;top:0;z-index:100;padding:16px 60px;display:flex;align-items:center;justify-content:space-between;background:rgba(5,9,12,0.94);backdrop-filter:blur(28px);border-bottom:1px solid var(--border-gold);}
+.wp-logo{font-family:var(--font-display);font-size:18px;font-weight:600;letter-spacing:4px;display:flex;align-items:center;gap:12px;color:var(--text);text-decoration:none;}
+.wp-logo img{width:36px;height:36px;border-radius:8px;}
+.wp-logo .accent{color:var(--teal);}
+.wp-nav a{color:var(--gold-light);opacity:0.7;text-decoration:none;font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;margin-left:32px;transition:all 0.2s;}
+.wp-nav a:hover{color:var(--teal);opacity:1;}
+.gold-rule{height:1px;background:linear-gradient(90deg,transparent 0%,var(--gold) 30%,var(--teal) 70%,transparent 100%);animation:ruleReveal 1.4s ease forwards;transform-origin:left;}
+@keyframes ruleReveal{from{transform:scaleX(0);opacity:0;}to{transform:scaleX(1);opacity:1;}}
+.sd{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;font-family:var(--font-body);}
+.sd.done{background:var(--teal);color:var(--bg);}
+.sd.active{background:var(--gold);color:var(--bg);box-shadow:0 0 12px rgba(201,169,110,0.4);}
+.sd.pending{background:var(--bg4);color:var(--text-dim);border:1px solid var(--border-dim);}
+.sline{width:18px;height:1px;background:var(--border-dim);}
+.btn,.btn:link,.btn:visited{display:inline-flex;text-decoration:none !important;align-items:center;justify-content:center;gap:8px;padding:14px 32px;border-radius:8px;font-family:var(--font-body);font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;cursor:pointer;border:none;transition:all 0.3s;text-decoration:none;}
+.btn-teal{background:linear-gradient(135deg,var(--teal),var(--teal-dark));color:var(--bg);}
+.btn-teal:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(78,205,196,0.4);}
+.btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:var(--bg);}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(201,169,110,0.4);}
+.btn-outline-teal{background:transparent;border:1px solid var(--border-teal);color:var(--teal);}
+.btn-outline-teal:hover{background:var(--teal-subtle);box-shadow:0 0 20px rgba(78,205,196,0.15);}
+.btn-ghost{background:transparent;border:1px solid var(--border-gold);color:var(--gold);text-decoration:none;}
+.btn-ghost:hover{background:var(--gold-subtle);}
+.btn-full{width:100%;}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:5px 16px;border-radius:100px;font-family:var(--font-body);font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;}
+.badge-teal{background:var(--teal-subtle);border:1px solid var(--border-teal);color:var(--teal);}
+.badge-gold{background:var(--gold-subtle);border:1px solid var(--border-gold);color:var(--gold);}
+.section-eyebrow{font-family:var(--font-display);font-size:10px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
+.bg-glow-teal{background:radial-gradient(ellipse at 20% 20%,rgba(78,205,196,0.16) 0%,transparent 55%),radial-gradient(ellipse at 80% 70%,rgba(201,169,110,0.1) 0%,transparent 55%),var(--bg);}
+.bg-glow-gold{background:radial-gradient(ellipse at 80% 20%,rgba(201,169,110,0.16) 0%,transparent 55%),radial-gradient(ellipse at 20% 70%,rgba(78,205,196,0.1) 0%,transparent 55%),var(--bg2);}
+.bg-glow-both{background:radial-gradient(ellipse at 15% 30%,rgba(78,205,196,0.14) 0%,transparent 50%),radial-gradient(ellipse at 85% 30%,rgba(201,169,110,0.14) 0%,transparent 50%),radial-gradient(ellipse at 50% 90%,rgba(78,205,196,0.07) 0%,transparent 40%),var(--bg);}
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.35;}}
+@keyframes glowPulse{0%,100%{box-shadow:0 0 20px rgba(78,205,196,0.2);}50%{box-shadow:0 0 40px rgba(78,205,196,0.5);}}
+@keyframes glowPulseGold{0%,100%{box-shadow:0 0 20px rgba(201,169,110,0.2);}50%{box-shadow:0 0 40px rgba(201,169,110,0.5);}}
+@keyframes spin{to{transform:rotate(360deg);}}
+@keyframes progressFill{from{width:0%;}to{width:var(--fill,65%);}}
+@keyframes floatUp{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
+@keyframes borderGlow{0%,100%{border-color:rgba(78,205,196,0.2);}50%{border-color:rgba(78,205,196,0.5);}}
+.fade-up{animation:fadeUp 0.7s ease both;}
+.fade-up-1{animation:fadeUp 0.7s 0.1s ease both;}
+.fade-up-2{animation:fadeUp 0.7s 0.2s ease both;}
+.fade-up-3{animation:fadeUp 0.7s 0.3s ease both;}
+.fade-up-4{animation:fadeUp 0.7s 0.4s ease both;}
+.section-divider{height:1px;background:linear-gradient(90deg,transparent,var(--border-gold),var(--border-teal),transparent);}
+footer{padding:40px 60px;text-align:center;border-top:1px solid var(--border-gold);}
+footer .footer-logo{font-family:var(--font-display);font-size:16px;letter-spacing:4px;margin-bottom:14px;color:var(--text);}
+footer .footer-logo .accent{color:var(--teal);}
+footer p{color:var(--text-dim);font-size:12px;margin-bottom:10px;font-family:var(--font-body);}
+footer a{color:var(--text-dim);text-decoration:none;margin:0 12px;transition:color 0.2s;font-size:12px;letter-spacing:0.5px;font-family:var(--font-body);}
+footer a:hover{color:var(--teal);}
+@media(max-width:768px){.wp-header{padding:14px 20px;}.wp-nav{display:none;}}
+.page-center{min-height:calc(100vh - 57px);display:flex;align-items:center;justify-content:center;padding:40px;}
+.auth-box{background:linear-gradient(160deg,#0d1520 0%,#060d14 100%);border:1px solid rgba(78,205,196,0.25);border-radius:20px;padding:48px 52px;max-width:460px;width:100%;text-align:center;animation:glowPulse 4s ease-in-out infinite,fadeUp 0.7s ease both;}
+.tt-brand{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:28px;padding-bottom:24px;border-bottom:1px solid rgba(255,255,255,0.06);}
+.tt-brand .tt-icon{width:40px;height:40px;border-radius:10px;border:1px solid rgba(78,205,196,0.3);background:rgba(78,205,196,0.06);display:flex;align-items:center;justify-content:center;}
+.tt-brand .name{font-family:var(--font-display);font-size:24px;letter-spacing:3px;color:var(--text);}
+.requesting{display:flex;align-items:center;gap:14px;background:rgba(201,169,110,0.05);border:1px solid var(--border-gold);border-radius:12px;padding:16px 20px;margin-bottom:24px;text-align:left;}
+.requesting img{width:42px;height:42px;border-radius:10px;flex-shrink:0;border:1px solid var(--border-gold);}
+.requesting h4{font-family:var(--font-display);font-size:14px;font-weight:600;color:var(--gold-light);margin-bottom:4px;letter-spacing:1px;}
+.requesting p{font-size:12px;color:rgba(255,255,255,0.4);font-weight:300;}
+.scope-section{margin-bottom:24px;text-align:left;}
+.scope-label{font-family:var(--font-display);font-size:9px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.3);margin-bottom:12px;}
+.scope-item{display:flex;align-items:center;justify-content:space-between;padding:11px 0;border-bottom:1px solid rgba(255,255,255,0.04);}
+.scope-item:last-child{border-bottom:none;}
+.scope-text{font-size:13px;color:var(--gold-light);display:flex;align-items:center;gap:10px;font-weight:300;}
+.scope-dot{width:5px;height:5px;border-radius:50%;background:var(--teal);flex-shrink:0;}
+.scope-badge{font-size:10px;padding:3px 10px;border-radius:100px;background:rgba(78,205,196,0.08);border:1px solid rgba(78,205,196,0.2);color:var(--teal);letter-spacing:0.5px;}
+.btn-tt{width:100%;padding:15px;border-radius:9px;font-family:var(--font-body);font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;cursor:pointer;border:none;background:linear-gradient(135deg,var(--teal),var(--teal-dark));color:var(--bg);margin-bottom:10px;transition:all 0.3s;}
+.btn-tt:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(78,205,196,0.4);}
+.btn-deny{width:100%;padding:13px;border-radius:9px;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border:1px solid rgba(255,255,255,0.08);background:transparent;color:rgba(255,255,255,0.35);transition:all 0.25s;font-family:var(--font-body);}
+.btn-deny:hover{border-color:rgba(201,169,110,0.3);color:var(--gold-light);}
+.tt-footer{margin-top:18px;font-size:11px;color:rgba(255,255,255,0.2);line-height:1.7;font-weight:300;}
+</style>
 </head>
-<body>
-  <header>
-    <div class="logo"><img src="AppLogo.jpg" alt="" style="height:32px;width:32px;border-radius:8px;">White<span>Phoenix</span></div>
-    <div class="steps-bar">
-      <div class="step-item"><div class="step-dot done">✓</div><span style="color:var(--teal)">Connect</span></div>
-      <div class="step-line"></div>
-      <div class="step-item"><div class="step-dot active">2</div><span style="color:var(--gold)">Authorize</span></div>
-      <div class="step-line"></div>
-      <div class="step-item"><div class="step-dot pending">3</div><span>Upload</span></div>
-      <div class="step-line"></div>
-      <div class="step-item"><div class="step-dot pending">4</div><span>Schedule</span></div>
-      <div class="step-line"></div>
-      <div class="step-item"><div class="step-dot pending">5</div><span>Post</span></div>
-      <div class="step-line"></div>
-      <div class="step-item"><div class="step-dot pending">6</div><span>Live</span></div>
-    </div>
-  </header>
-  <div class="main">
-    <div class="box">
-      <div class="tt-header">
-        <div class="tt-logo">🎵</div>
-        <div class="tt-name">TikTok</div>
-      </div>
-      <div class="app-request">
-        <div class="app-icon"><img src="AppLogo.jpg" alt="WhitePhoenix"></div>
-        <div class="app-info">
-          <h3>WhitePhoenix</h3>
-          <p>whitephoenix.app is requesting access to your TikTok account</p>
-        </div>
-      </div>
-      <div class="divider"></div>
-      <div class="scope-list">
-        <h4>This app will be able to:</h4>
-        <div class="scope-item"><span class="scope-icon">👤</span><span>Access your basic profile info (user.info.basic)</span></div>
-        <div class="scope-item"><span class="scope-icon">📤</span><span>Publish videos to your profile (video.publish)</span></div>
-        <div class="scope-item"><span class="scope-icon">🎬</span><span>Upload video content (video.upload)</span></div>
-      </div>
-      <div class="divider"></div>
-      <button class="btn-authorize" onclick="window.location.href='upload.html'">Authorize WhitePhoenix</button>
-      <button class="btn-deny" onclick="window.location.href='index.html'">Deny</button>
-      <div class="tt-footer">By authorizing, you agree to TikTok's Terms of Service and Privacy Policy</div>
-    </div>
+<body class="bg-glow-teal">
+<header class="wp-header">
+  <a href="index.html" class="wp-logo"><img src="AppLogo.jpg" alt="">White<span class="accent">Phoenix</span></a>
+  <div style="display:flex;align-items:center;gap:6px;font-size:11px;">
+    <div style="display:flex;align-items:center;gap:5px;"><div class="sd done">✓</div><span style="color:var(--teal);font-weight:500;">Connect</span></div>
+    <div class="sline"></div><div style="display:flex;align-items:center;gap:5px;"><div class="sd active">2</div><span style="color:var(--gold);font-weight:600;">Authorize</span></div>
+    <div class="sline"></div><div style="display:flex;align-items:center;gap:5px;"><div class="sd pending">3</div><span style="color:var(--text-dim);">Upload</span></div>
+    <div class="sline"></div><div style="display:flex;align-items:center;gap:5px;"><div class="sd pending">4</div><span style="color:var(--text-dim);">Schedule</span></div>
+    <div class="sline"></div><div style="display:flex;align-items:center;gap:5px;"><div class="sd pending">5</div><span style="color:var(--text-dim);">Post</span></div>
+    <div class="sline"></div><div style="display:flex;align-items:center;gap:5px;"><div class="sd pending">6</div><span style="color:var(--text-dim);">Live</span></div>
   </div>
+</header>
+<div class="gold-rule"></div>
+<div class="page-center">
+  <div class="auth-box">
+    <div class="tt-brand">
+      <div class="tt-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#4ecdc4" stroke-width="1.5"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg></div>
+      <div class="name">TikTok</div>
+    </div>
+    <div class="requesting">
+      <img src="AppLogo.jpg" alt="WhitePhoenix">
+      <div>
+        <h4>WhitePhoenix</h4>
+        <p>whitephoenix.app is requesting access to your account</p>
+      </div>
+    </div>
+    <div class="scope-section">
+      <div class="scope-label">This app will be able to</div>
+      <div class="scope-item"><span class="scope-text"><span class="scope-dot"></span>View basic profile information</span><span class="scope-badge">user.info.basic</span></div>
+      <div class="scope-item"><span class="scope-text"><span class="scope-dot"></span>Publish videos to your profile</span><span class="scope-badge">video.publish</span></div>
+      <div class="scope-item"><span class="scope-text"><span class="scope-dot"></span>Upload video content</span><span class="scope-badge">video.upload</span></div>
+    </div>
+    <button class="btn-tt" onclick="window.location.href='upload.html'">Authorize WhitePhoenix</button>
+    <button class="btn-deny" onclick="window.location.href='index.html'">Deny Access</button>
+    <div class="tt-footer">By authorizing, you agree to TikTok's Terms of Service and Privacy Policy. WhitePhoenix will only access the data listed above.</div>
+  </div>
+</div>
 </body>
 </html>
