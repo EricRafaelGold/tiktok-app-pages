@@ -1,6 +1,6 @@
-# WhitePhoenix Studio
+# WhitePhoenix
 
-WhitePhoenix Studio is a video scheduling and automation platform for TikTok content creators. Connect your TikTok account via OAuth and automatically post videos on a daily schedule — no manual effort required.
+WhitePhoenix is a video scheduling and automation platform for TikTok content creators. Connect your TikTok account via OAuth and automatically post videos on a daily schedule — no manual effort required.
 
 ## Features
 
@@ -12,9 +12,9 @@ WhitePhoenix Studio is a video scheduling and automation platform for TikTok con
 
 ## Pages
 
-- [Home](https://ericrafaelgold.github.io/tiktok-app-pages/)
-- [Privacy Policy](https://ericrafaelgold.github.io/tiktok-app-pages/privacy.html)
-- [Terms of Service](https://ericrafaelgold.github.io/tiktok-app-pages/terms.html)
+- [Home](https://whitephoenix.app/)
+- [Privacy Policy](https://whitephoenix.app/privacy.html)
+- [Terms of Service](https://whitephoenix.app/terms.html)
 
 ## Contact
 
