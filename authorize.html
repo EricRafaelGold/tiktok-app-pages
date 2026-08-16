@@ -99,6 +99,7 @@ footer a:hover{color:var(--teal);}
 .scope-text{font-size:13px;color:var(--gold-light);display:flex;align-items:center;gap:10px;font-weight:300;}
 .scope-dot{width:5px;height:5px;border-radius:50%;background:var(--teal);flex-shrink:0;}
 .scope-badge{font-size:10px;padding:3px 10px;border-radius:100px;background:rgba(78,205,196,0.08);border:1px solid rgba(78,205,196,0.2);color:var(--teal);letter-spacing:0.5px;}
+.scope-badge-large{font-size:12px;padding:5px 14px;border-radius:8px;background:rgba(78,205,196,0.1);border:1px solid rgba(78,205,196,0.35);color:var(--teal);letter-spacing:1px;font-weight:600;white-space:nowrap;}
 .btn-tt{width:100%;padding:15px;border-radius:9px;font-family:var(--font-body);font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;cursor:pointer;border:none;background:linear-gradient(135deg,var(--teal),var(--teal-dark));color:var(--bg);margin-bottom:10px;transition:all 0.3s;}
 .btn-tt:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(78,205,196,0.4);}
 .btn-deny{width:100%;padding:13px;border-radius:9px;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border:1px solid rgba(255,255,255,0.08);background:transparent;color:rgba(255,255,255,0.35);transition:all 0.25s;font-family:var(--font-body);}
@@ -133,10 +134,28 @@ footer a:hover{color:var(--teal);}
       </div>
     </div>
     <div class="scope-section">
-      <div class="scope-label">This app will be able to</div>
-      <div class="scope-item"><span class="scope-text"><span class="scope-dot"></span>View basic profile information</span><span class="scope-badge">user.info.basic</span></div>
-      <div class="scope-item"><span class="scope-text"><span class="scope-dot"></span>Publish videos to your profile</span><span class="scope-badge">video.publish</span></div>
-      <div class="scope-item"><span class="scope-text"><span class="scope-dot"></span>Upload video content</span><span class="scope-badge">video.upload</span></div>
+      <div class="scope-label">API Scopes Requested</div>
+      <div class="scope-item" style="flex-direction:column;align-items:flex-start;gap:6px;padding:14px 0;">
+        <div style="display:flex;justify-content:space-between;width:100%;align-items:center;">
+          <span class="scope-text"><span class="scope-dot"></span><strong style="color:var(--teal);font-family:monospace;font-size:12px;">user.info.basic</strong></span>
+          <span class="scope-badge">Required</span>
+        </div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.45);padding-left:15px;font-weight:300;">Read your TikTok username, avatar, and display name</div>
+      </div>
+      <div class="scope-item" style="flex-direction:column;align-items:flex-start;gap:6px;padding:14px 0;border-top:1px solid rgba(255,255,255,0.04);">
+        <div style="display:flex;justify-content:space-between;width:100%;align-items:center;">
+          <span class="scope-text"><span class="scope-dot"></span><strong style="color:var(--teal);font-family:monospace;font-size:12px;">video.upload</strong></span>
+          <span class="scope-badge">Required</span>
+        </div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.45);padding-left:15px;font-weight:300;">Upload video files to TikTok via Content Posting API</div>
+      </div>
+      <div class="scope-item" style="flex-direction:column;align-items:flex-start;gap:6px;padding:14px 0;border-top:1px solid rgba(255,255,255,0.04);">
+        <div style="display:flex;justify-content:space-between;width:100%;align-items:center;">
+          <span class="scope-text"><span class="scope-dot"></span><strong style="color:var(--teal);font-family:monospace;font-size:12px;">video.publish</strong></span>
+          <span class="scope-badge">Required</span>
+        </div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.45);padding-left:15px;font-weight:300;">Publish uploaded videos directly to your TikTok profile</div>
+      </div>
     </div>
     <button class="btn-tt" onclick="window.location.href='upload.html'">Authorize WhitePhoenix</button>
     <button class="btn-deny" onclick="window.location.href='index.html'">Deny Access</button>
