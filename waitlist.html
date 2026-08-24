@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WhitePhoenix — Join the Waitlist</title>
+  <link rel="icon" type="image/jpeg" href="AppLogo.jpg">
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Raleway:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap');
+
+:root {
+  --teal:#4ecdc4;--teal-light:#7eddd7;--teal-dark:#2ea89f;
+  --teal-glow:rgba(78,205,196,0.18);--teal-subtle:rgba(78,205,196,0.09);
+  --gold:#c9a96e;--gold-light:#dfc08e;--gold-dark:#9a7a48;
+  --gold-glow:rgba(201,169,110,0.18);--gold-subtle:rgba(201,169,110,0.09);
+  --bg:#05090c;--bg2:#080e14;--bg3:#0c141c;--bg4:#101c26;
+  --text:#f2ede6;--text-dim:#8a9aaa;
+  --border-gold:rgba(201,169,110,0.22);--border-teal:rgba(78,205,196,0.22);
+  --border-dim:rgba(255,255,255,0.07);
+  --font-display:'Cinzel',serif;--font-body:'Raleway',sans-serif;--r:14px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+h1,h2,h3,h4{font-family:var(--font-display);letter-spacing:0.05em;}
+
+/* HEADER */
+.wp-header{position:sticky;top:0;z-index:100;padding:16px 60px;display:flex;align-items:center;justify-content:space-between;background:rgba(5,9,12,0.94);backdrop-filter:blur(28px);border-bottom:1px solid var(--border-gold);}
+.wp-logo{font-family:var(--font-display);font-size:18px;font-weight:600;letter-spacing:4px;display:flex;align-items:center;gap:12px;color:var(--text);text-decoration:none;}
+.wp-logo img{width:36px;height:36px;border-radius:8px;}
+.wp-logo .accent{color:var(--teal);}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 24px;text-align:center;position:relative;background:radial-gradient(ellipse at 50% 0%, rgba(78,205,196,0.06) 0%, transparent 60%), radial-gradient(ellipse at 80% 80%, rgba(201,169,110,0.04) 0%, transparent 50%);}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border:1px solid var(--border-teal);border-radius:100px;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--teal);margin-bottom:32px;}
+.badge-dot{width:6px;height:6px;border-radius:50%;background:var(--teal);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
+.hero h1{font-size:clamp(32px,5vw,64px);font-weight:600;line-height:1.1;max-width:800px;margin-bottom:24px;background:linear-gradient(135deg,var(--text) 0%,var(--gold-light) 50%,var(--teal-light) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.hero-sub{font-size:clamp(15px,2vw,19px);color:var(--text-dim);max-width:560px;line-height:1.7;margin-bottom:48px;font-weight:300;}
+.gold-rule{height:1px;background:linear-gradient(90deg,transparent 0%,var(--gold) 30%,var(--teal) 70%,transparent 100%);width:200px;margin:0 auto 48px;}
+
+/* FORM */
+.waitlist-form{display:flex;gap:12px;max-width:480px;width:100%;margin:0 auto;}
+.waitlist-form input{flex:1;background:rgba(255,255,255,0.05);border:1px solid var(--border-gold);border-radius:10px;padding:14px 20px;font-family:var(--font-body);font-size:14px;color:var(--text);outline:none;transition:border-color 0.3s;}
+.waitlist-form input::placeholder{color:var(--text-dim);}
+.waitlist-form input:focus{border-color:var(--teal);}
+.btn-join{background:linear-gradient(135deg,var(--teal),var(--teal-dark));border:none;border-radius:10px;padding:14px 28px;font-family:var(--font-body);font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--bg);cursor:pointer;transition:all 0.3s;white-space:nowrap;}
+.btn-join:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(78,205,196,0.4);}
+.form-note{font-size:11px;color:var(--text-dim);margin-top:12px;letter-spacing:0.5px;}
+.success-msg{display:none;padding:16px 24px;border:1px solid var(--border-teal);border-radius:10px;color:var(--teal);font-size:14px;background:var(--teal-subtle);}
+
+/* SOCIAL PROOF */
+.social-proof{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:48px;}
+.avatars{display:flex;}
+.avatar{width:32px;height:32px;border-radius:50%;background:var(--bg4);border:2px solid var(--bg);margin-left:-8px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--teal);}
+.avatar:first-child{margin-left:0;}
+.proof-text{font-size:13px;color:var(--text-dim);}
+.proof-text strong{color:var(--gold);}
+
+/* WHAT YOU GET */
+.section{padding:100px 24px;max-width:1100px;margin:0 auto;}
+.section-label{font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--teal);margin-bottom:16px;}
+.section-title{font-size:clamp(24px,3vw,40px);font-weight:600;margin-bottom:16px;color:var(--text);}
+.section-sub{font-size:16px;color:var(--text-dim);max-width:520px;line-height:1.7;}
+
+.perks-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:48px;}
+.perk-card{background:var(--bg2);border:1px solid var(--border-dim);border-radius:16px;padding:32px;transition:border-color 0.3s;}
+.perk-card:hover{border-color:var(--border-teal);}
+.perk-icon{width:48px;height:48px;border-radius:12px;background:var(--teal-subtle);border:1px solid var(--border-teal);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:20px;}
+.perk-card h3{font-size:16px;font-weight:600;margin-bottom:10px;font-family:var(--font-display);letter-spacing:0.05em;}
+.perk-card p{font-size:14px;color:var(--text-dim);line-height:1.7;}
+
+/* HOW IT WORKS */
+.how-section{padding:100px 24px;background:var(--bg2);border-top:1px solid var(--border-dim);border-bottom:1px solid var(--border-dim);}
+.how-inner{max-width:1100px;margin:0 auto;}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:32px;margin-top:48px;}
+.step{position:relative;}
+.step-num{font-family:var(--font-display);font-size:48px;font-weight:700;color:var(--border-dim);margin-bottom:16px;line-height:1;}
+.step h3{font-size:15px;font-weight:600;margin-bottom:8px;font-family:var(--font-display);letter-spacing:0.05em;color:var(--gold);}
+.step p{font-size:13px;color:var(--text-dim);line-height:1.7;}
+
+/* STATS */
+.stats-row{display:flex;justify-content:center;gap:60px;padding:80px 24px;flex-wrap:wrap;}
+.stat{text-align:center;}
+.stat-num{font-family:var(--font-display);font-size:clamp(32px,4vw,48px);font-weight:700;color:var(--gold);display:block;margin-bottom:8px;}
+.stat-lbl{font-size:12px;color:var(--text-dim);letter-spacing:1px;text-transform:uppercase;}
+
+/* FINAL CTA */
+.final-cta{padding:120px 24px;text-align:center;background:radial-gradient(ellipse at 50% 100%, rgba(78,205,196,0.08) 0%, transparent 60%);}
+.final-cta h2{font-size:clamp(28px,4vw,48px);font-weight:600;max-width:600px;margin:0 auto 24px;background:linear-gradient(135deg,var(--text) 0%,var(--teal-light) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.final-cta p{font-size:16px;color:var(--text-dim);max-width:480px;margin:0 auto 48px;line-height:1.7;}
+
+/* FOOTER */
+.footer{padding:32px 60px;border-top:1px solid var(--border-dim);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+.footer-links a{font-size:12px;color:var(--text-dim);text-decoration:none;margin-left:24px;transition:color 0.2s;}
+.footer-links a:hover{color:var(--teal);}
+.footer-copy{font-size:12px;color:var(--text-dim);}
+
+@media(max-width:600px){
+  .wp-header{padding:14px 20px;}
+  .waitlist-form{flex-direction:column;}
+  .stats-row{gap:32px;}
+  .footer{padding:24px 20px;}
+  .footer-links a:first-child{margin-left:0;}
+}
+  </style>
+</head>
+<body>
+
+<header class="wp-header">
+  <a href="https://whitephoenix.app" class="wp-logo">
+    <img src="AppLogo.jpg" alt="WhitePhoenix">
+    WHITE<span class="accent">PHOENIX</span>
+  </a>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="badge">
+    <span class="badge-dot"></span>
+    Now accepting waitlist applications
+  </div>
+  <h1>The WhitePhoenix Method</h1>
+  <div class="gold-rule"></div>
+  <p class="hero-sub">I built a content machine that posts to YouTube, Instagram, Facebook and TikTok — twice a day, every day — without touching it. Now I'm teaching exactly how.</p>
+
+  <div class="waitlist-form" id="form-wrapper">
+    <input type="email" id="email-input" placeholder="Enter your email address" autocomplete="email">
+    <button class="btn-join" onclick="joinWaitlist()">Join Waitlist</button>
+  </div>
+  <div class="success-msg" id="success-msg">
+    ✦ You're on the list. Check your inbox for what's coming.
+  </div>
+  <p class="form-note">Free to join. No spam. Unsubscribe any time.</p>
+
+  <div class="social-proof">
+    <div class="avatars">
+      <div class="avatar">E</div>
+      <div class="avatar">M</div>
+      <div class="avatar">R</div>
+      <div class="avatar">J</div>
+    </div>
+    <span class="proof-text">Join <strong>early members</strong> already on the list</span>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-row">
+  <div class="stat">
+    <span class="stat-num">1,721</span>
+    <span class="stat-lbl">Videos queued</span>
+  </div>
+  <div class="stat">
+    <span class="stat-num">4</span>
+    <span class="stat-lbl">Platforms automated</span>
+  </div>
+  <div class="stat">
+    <span class="stat-num">2×</span>
+    <span class="stat-lbl">Posts every day</span>
+  </div>
+  <div class="stat">
+    <span class="stat-num">0</span>
+    <span class="stat-lbl">Manual effort daily</span>
+  </div>
+</div>
+
+<!-- WHAT YOU GET -->
+<section class="section">
+  <p class="section-label">What's inside</p>
+  <h2 class="section-title">What you get when you join</h2>
+  <p class="section-sub">Early members get exclusive access to behind-the-scenes content — and first access when the course launches.</p>
+
+  <div class="perks-grid">
+    <div class="perk-card">
+      <div class="perk-icon">⚙️</div>
+      <h3>Behind-the-Scenes Guide</h3>
+      <p>A free look inside the system — the stack, the strategy, and how I set it all up. Enough to get you thinking differently about content.</p>
+    </div>
+    <div class="perk-card">
+      <div class="perk-icon">🔑</div>
+      <h3>Early Access</h3>
+      <p>Waitlist members get first access to the full course before it opens to the public — at the lowest price it will ever be.</p>
+    </div>
+    <div class="perk-card">
+      <div class="perk-icon">📡</div>
+      <h3>Automation Insights</h3>
+      <p>Real data, real results. I'll share what's working — views, growth, platform insights — as the machine runs in real time.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<div class="how-section">
+  <div class="how-inner">
+    <p class="section-label">The method</p>
+    <h2 class="section-title">How the machine works</h2>
+    <p class="section-sub">Built once. Runs forever. No agency, no team, no daily effort.</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h3>Source the content</h3>
+        <p>A library of royalty-free luxury lifestyle videos — cars, jets, wealth, lifestyle — ready to post.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h3>Build the automation</h3>
+        <p>A cloud server runs 24/7, picking the next video, adding captions, and posting to every platform automatically.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h3>Let it post</h3>
+        <p>9am and 6pm, every single day — YouTube, Instagram, Facebook, TikTok — without you touching a thing.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <h3>Monetize the audience</h3>
+        <p>As the following grows, the digital course becomes the product. The content machine feeds the business.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <h2>Be first to know when it launches</h2>
+  <p>The course teaches everything — the tools, the setup, the exact system — so you can build your own content machine and run it on autopilot.</p>
+
+  <div class="waitlist-form" id="form-wrapper-2" style="margin:0 auto;">
+    <input type="email" id="email-input-2" placeholder="Enter your email address" autocomplete="email">
+    <button class="btn-join" onclick="joinWaitlist2()">Get Early Access</button>
+  </div>
+  <div class="success-msg" id="success-msg-2" style="max-width:480px;margin:16px auto 0;"></div>
+  <p class="form-note" style="margin-top:12px;">Free. No spam. Early access guaranteed.</p>
+</section>
+
+<footer class="footer">
+  <span class="footer-copy">© 2026 WhitePhoenix. All rights reserved.</span>
+  <div class="footer-links">
+    <a href="https://whitephoenix.app/privacy.html">Privacy</a>
+    <a href="https://whitephoenix.app/terms.html">Terms</a>
+    <a href="https://whitephoenix.app">Home</a>
+  </div>
+</footer>
+
+<script>
+function joinWaitlist() {
+  const input = document.getElementById('email-input');
+  const email = input.value.trim();
+  if (!email || !email.includes('@')) {
+    input.style.borderColor = '#e25252';
+    input.focus();
+    return;
+  }
+  input.style.borderColor = '';
+  document.getElementById('form-wrapper').style.display = 'none';
+  const msg = document.getElementById('success-msg');
+  msg.style.display = 'block';
+  msg.textContent = '✦ You\'re on the list — watch your inbox.';
+}
+
+function joinWaitlist2() {
+  const input = document.getElementById('email-input-2');
+  const email = input.value.trim();
+  if (!email || !email.includes('@')) {
+    input.style.borderColor = '#e25252';
+    input.focus();
+    return;
+  }
+  input.style.borderColor = '';
+  document.getElementById('form-wrapper-2').style.display = 'none';
+  const msg = document.getElementById('success-msg-2');
+  msg.style.display = 'block';
+  msg.textContent = '✦ You\'re on the list — watch your inbox.';
+}
+</script>
+
+</body>
+</html>
