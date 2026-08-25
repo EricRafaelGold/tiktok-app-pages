@@ -8,154 +8,186 @@
   <style>
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Raleway:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap');
 
-a,.btn,.btn:link,.btn:visited { text-decoration: none !important; }
-a:link, a:visited { color: inherit; }
-.btn-outline-gold,.btn-outline-gold:link,.btn-outline-gold:visited { color: var(--gold) !important; }
-.btn-outline-teal,.btn-outline-teal:link,.btn-outline-teal:visited { color: var(--teal) !important; }
-.btn-teal,.btn-teal:link,.btn-teal:visited { color: var(--bg) !important; }
-.btn-gold,.btn-gold:link,.btn-gold:visited { color: var(--bg) !important; }
-.btn-ghost,.btn-ghost:link,.btn-ghost:visited { color: var(--gold) !important; }
-/* GLOBAL LINK RESET DONE */
-:root {
+:root{
   --teal:#4ecdc4;--teal-light:#7eddd7;--teal-dark:#2ea89f;
   --teal-glow:rgba(78,205,196,0.18);--teal-subtle:rgba(78,205,196,0.09);
   --gold:#c9a96e;--gold-light:#dfc08e;--gold-dark:#9a7a48;
   --gold-glow:rgba(201,169,110,0.18);--gold-subtle:rgba(201,169,110,0.09);
   --bg:#05090c;--bg2:#080e14;--bg3:#0c141c;--bg4:#101c26;
-  --text:#f2ede6;--text-on-teal:#c9a96e;--text-dim:#4a5a6a;
+  --text:#f2ede6;--text-dim:#4a5a6a;
   --border-gold:rgba(201,169,110,0.22);--border-teal:rgba(78,205,196,0.22);
   --border-dim:rgba(255,255,255,0.07);
-  --font-display:'Cinzel',serif;--font-body:'Raleway',sans-serif;--r:14px;
+  --font-display:'Cinzel',serif;--font-body:'Raleway',sans-serif;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-body{font-family:var(--font-body);background:var(--bg);color:var(--text);overflow-x:hidden;-webkit-font-smoothing:antialiased;}
-h1,h2,h3,h4{font-family:var(--font-display);letter-spacing:0.05em;}
-p,li,span,a,button,input,label,div{font-family:var(--font-body);}
-.wp-header{position:sticky;top:0;z-index:100;padding:16px 60px;display:flex;align-items:center;justify-content:space-between;background:rgba(5,9,12,0.94);backdrop-filter:blur(28px);border-bottom:1px solid var(--border-gold);}
-.wp-logo{font-family:var(--font-display);font-size:18px;font-weight:600;letter-spacing:4px;display:flex;align-items:center;gap:12px;color:var(--text);text-decoration:none;}
-.wp-logo img{width:36px;height:36px;border-radius:8px;}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);overflow-x:hidden;-webkit-font-smoothing:antialiased;cursor:none;}
+
+/* CURSOR */
+#cursor{position:fixed;width:8px;height:8px;background:var(--teal);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:background 0.3s,width 0.2s,height 0.2s;mix-blend-mode:screen;}
+#cursor-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(78,205,196,0.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width 0.3s,height 0.3s,border-color 0.3s;mix-blend-mode:screen;}
+#cursor-trail{position:fixed;width:200px;height:200px;border-radius:50%;pointer-events:none;z-index:0;transform:translate(-50%,-50%);background:radial-gradient(circle,rgba(78,205,196,0.04) 0%,transparent 70%);transition:left 0.15s,top 0.15s;}
+
+/* CANVAS */
+#particles{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;}
+
+/* HEADER */
+.wp-header{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 60px;display:flex;align-items:center;justify-content:space-between;transition:all 0.5s;}
+.wp-header.scrolled{background:rgba(5,9,12,0.96);backdrop-filter:blur(32px);border-bottom:1px solid var(--border-gold);}
+.wp-logo{font-family:var(--font-display);font-size:16px;font-weight:600;letter-spacing:4px;display:flex;align-items:center;gap:12px;color:var(--text);text-decoration:none;}
+.wp-logo img{width:34px;height:34px;border-radius:8px;}
 .wp-logo .accent{color:var(--teal);}
-.wp-nav a{color:var(--gold-light);opacity:0.7;text-decoration:none;font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;margin-left:32px;transition:all 0.2s;}
+.wp-nav a{color:var(--gold-light);opacity:0.6;text-decoration:none;font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;margin-left:28px;transition:all 0.3s;position:relative;}
+.wp-nav a::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:1px;background:var(--teal);transform:scaleX(0);transition:transform 0.3s;}
 .wp-nav a:hover{color:var(--teal);opacity:1;}
-.gold-rule{height:1px;background:linear-gradient(90deg,transparent 0%,var(--gold) 30%,var(--teal) 70%,transparent 100%);animation:ruleReveal 1.4s ease forwards;transform-origin:left;}
-@keyframes ruleReveal{from{transform:scaleX(0);opacity:0;}to{transform:scaleX(1);opacity:1;}}
-.sd{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;font-family:var(--font-body);}
-.sd.done{background:var(--teal);color:var(--bg);}
-.sd.active{background:var(--gold);color:var(--bg);box-shadow:0 0 12px rgba(201,169,110,0.4);}
-.sd.pending{background:var(--bg4);color:var(--text-dim);border:1px solid var(--border-dim);}
-.sline{width:18px;height:1px;background:var(--border-dim);}
-.btn,.btn:link,.btn:visited{display:inline-flex;text-decoration:none !important;align-items:center;justify-content:center;gap:8px;padding:14px 32px;border-radius:8px;font-family:var(--font-body);font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;cursor:pointer;border:none;transition:all 0.3s;text-decoration:none;}
+.wp-nav a:hover::after{transform:scaleX(1);}
+.nav-cta{color:var(--teal)!important;opacity:1!important;border:1px solid var(--border-teal)!important;padding:7px 18px!important;border-radius:100px!important;}
+.nav-cta::after{display:none!important;}
+.nav-cta:hover{background:var(--teal-subtle)!important;}
+
+/* HERO */
+.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 40px 80px;z-index:1;overflow:hidden;}
+.hero-bg-orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;}
+.orb-1{width:600px;height:600px;background:radial-gradient(circle,rgba(78,205,196,0.07) 0%,transparent 70%);top:-100px;left:-100px;animation:orbFloat1 12s ease-in-out infinite;}
+.orb-2{width:500px;height:500px;background:radial-gradient(circle,rgba(201,169,110,0.05) 0%,transparent 70%);bottom:-50px;right:-50px;animation:orbFloat2 15s ease-in-out infinite;}
+@keyframes orbFloat1{0%,100%{transform:translate(0,0);}33%{transform:translate(60px,40px);}66%{transform:translate(-30px,60px);}}
+@keyframes orbFloat2{0%,100%{transform:translate(0,0);}33%{transform:translate(-50px,-30px);}66%{transform:translate(40px,-60px);}}
+
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;padding:6px 20px;border:1px solid var(--border-teal);border-radius:100px;font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--teal);margin-bottom:40px;opacity:0;animation:fadeUp 0.8s 0.3s forwards;}
+.eyebrow-dot{width:5px;height:5px;border-radius:50%;background:var(--teal);animation:pulse 2s infinite;}
+
+.hero h1{font-family:var(--font-display);font-size:clamp(48px,7vw,96px);font-weight:300;line-height:1.0;margin-bottom:32px;}
+.hero h1 .word{display:inline-block;overflow:hidden;vertical-align:bottom;}
+.hero h1 .word span{display:inline-block;transform:translateY(100%);animation:wordReveal 0.7s cubic-bezier(0.23,1,0.32,1) forwards;opacity:0;}
+.hero h1 em{font-style:italic;color:var(--teal);}
+.hero h1 strong{font-weight:700;color:var(--gold);}
+
+.hero-sub{font-size:17px;color:var(--gold-light);max-width:500px;line-height:1.8;margin:0 auto 52px;font-weight:300;opacity:0;animation:fadeUp 0.9s 1.4s forwards;}
+.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;opacity:0;animation:fadeUp 0.9s 1.6s forwards;}
+
+/* SCROLL INDICATOR */
+.scroll-indicator{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;animation:fadeIn 1s 2.2s forwards;}
+.scroll-line{width:1px;height:60px;background:linear-gradient(to bottom,var(--teal),transparent);animation:scrollPulse 2s ease-in-out infinite;}
+.scroll-label{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--text-dim);}
+@keyframes scrollPulse{0%,100%{opacity:0.4;}50%{opacity:1;}}
+@keyframes fadeIn{to{opacity:1;}}
+
+/* BUTTONS */
+a,button{text-decoration:none!important;cursor:none;}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 32px;border-radius:8px;font-family:var(--font-body);font-size:11px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;border:none;transition:all 0.4s;position:relative;overflow:hidden;}
+.btn::before{content:'';position:absolute;top:50%;left:50%;width:0;height:0;border-radius:50%;background:rgba(255,255,255,0.1);transform:translate(-50%,-50%);transition:width 0.5s,height 0.5s;}
+.btn:hover::before{width:300px;height:300px;}
 .btn-teal{background:linear-gradient(135deg,var(--teal),var(--teal-dark));color:var(--bg);}
-.btn-teal:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(78,205,196,0.4);}
+.btn-teal:hover{transform:translateY(-3px);box-shadow:0 20px 50px rgba(78,205,196,0.35);}
 .btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:var(--bg);}
-.btn-gold:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(201,169,110,0.4);}
-.btn-outline-teal{background:transparent;border:1px solid var(--border-teal);color:var(--teal);}
-.btn-outline-teal:hover{background:var(--teal-subtle);box-shadow:0 0 20px rgba(78,205,196,0.15);}
+.btn-gold:hover{transform:translateY(-3px);box-shadow:0 20px 50px rgba(201,169,110,0.35);}
 .btn-ghost{background:transparent;border:1px solid var(--border-gold);color:var(--gold);}
-.btn-ghost:hover{background:var(--gold-subtle);}
-.btn-full{width:100%;}
-.badge{display:inline-flex;align-items:center;gap:6px;padding:5px 16px;border-radius:100px;font-family:var(--font-body);font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;}
-.badge-teal{background:var(--teal-subtle);border:1px solid var(--border-teal);color:var(--teal);}
-.badge-gold{background:var(--gold-subtle);border:1px solid var(--border-gold);color:var(--gold);}
-.section-eyebrow{font-family:var(--font-display);font-size:10px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
-.bg-glow-teal{background:radial-gradient(ellipse at 20% 20%,rgba(78,205,196,0.16) 0%,transparent 55%),radial-gradient(ellipse at 80% 70%,rgba(201,169,110,0.1) 0%,transparent 55%),var(--bg);}
-.bg-glow-gold{background:radial-gradient(ellipse at 80% 20%,rgba(201,169,110,0.16) 0%,transparent 55%),radial-gradient(ellipse at 20% 70%,rgba(78,205,196,0.1) 0%,transparent 55%),var(--bg2);}
-.bg-glow-both{background:radial-gradient(ellipse at 15% 30%,rgba(78,205,196,0.14) 0%,transparent 50%),radial-gradient(ellipse at 85% 30%,rgba(201,169,110,0.14) 0%,transparent 50%),radial-gradient(ellipse at 50% 90%,rgba(78,205,196,0.07) 0%,transparent 40%),var(--bg);}
-@keyframes fadeUp{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
-@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
-@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.35;}}
-@keyframes glowPulse{0%,100%{box-shadow:0 0 20px rgba(78,205,196,0.2);}50%{box-shadow:0 0 40px rgba(78,205,196,0.5);}}
-@keyframes glowPulseGold{0%,100%{box-shadow:0 0 20px rgba(201,169,110,0.2);}50%{box-shadow:0 0 40px rgba(201,169,110,0.5);}}
-@keyframes spin{to{transform:rotate(360deg);}}
-@keyframes progressFill{from{width:0%;}to{width:var(--fill,65%);}}
-@keyframes floatUp{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
-@keyframes borderGlow{0%,100%{border-color:rgba(78,205,196,0.2);}50%{border-color:rgba(78,205,196,0.5);}}
-.fade-up{animation:fadeUp 0.7s ease both;}
-.fade-up-1{animation:fadeUp 0.7s 0.1s ease both;}
-.fade-up-2{animation:fadeUp 0.7s 0.2s ease both;}
-.fade-up-3{animation:fadeUp 0.7s 0.3s ease both;}
-.fade-up-4{animation:fadeUp 0.7s 0.4s ease both;}
-.section-divider{height:1px;background:linear-gradient(90deg,transparent,var(--border-gold),var(--border-teal),transparent);}
-footer{padding:40px 60px;text-align:center;border-top:1px solid var(--border-gold);}
-footer .footer-logo{font-family:var(--font-display);font-size:16px;letter-spacing:4px;margin-bottom:14px;color:var(--text);}
-footer .footer-logo .accent{color:var(--teal);}
-footer p{color:var(--text-dim);font-size:12px;margin-bottom:10px;font-family:var(--font-body);}
-footer a{color:var(--text-dim);text-decoration:none;margin:0 12px;transition:color 0.2s;font-size:12px;letter-spacing:0.5px;font-family:var(--font-body);}
+.btn-ghost:hover{background:var(--gold-subtle);transform:translateY(-2px);}
+
+/* GOLD RULE */
+.gold-rule{height:1px;background:linear-gradient(90deg,transparent,var(--gold),var(--teal),transparent);position:relative;z-index:1;}
+
+/* STATS */
+.stats-section{position:relative;z-index:1;padding:80px 60px;display:flex;justify-content:center;gap:80px;flex-wrap:wrap;border-bottom:1px solid var(--border-dim);}
+.stat{text-align:center;position:relative;}
+.stat::after{content:'';position:absolute;bottom:-4px;left:50%;transform:translateX(-50%);width:0;height:1px;background:var(--gold);transition:width 0.5s;}
+.stat:hover::after{width:80%;}
+.stat-num{font-family:var(--font-display);font-size:clamp(36px,4vw,56px);font-weight:700;color:var(--gold);display:block;margin-bottom:8px;}
+.stat-lbl{font-size:10px;color:var(--text-dim);letter-spacing:2.5px;text-transform:uppercase;}
+
+/* FEATURES */
+.features{position:relative;z-index:1;padding:120px 60px;}
+.section-eyebrow{font-family:var(--font-display);font-size:10px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:12px;display:block;text-align:center;}
+.section-title{font-family:var(--font-display);font-size:clamp(28px,3.5vw,44px);font-weight:300;text-align:center;margin-bottom:64px;}
+.section-title em{font-style:italic;color:var(--teal);}
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;max-width:1100px;margin:0 auto;background:var(--border-gold);border:1px solid var(--border-gold);}
+.feature-item{background:var(--bg2);padding:44px 36px;transition:all 0.4s;position:relative;overflow:hidden;}
+.feature-item::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--teal),var(--gold));transform:scaleX(0);transform-origin:left;transition:transform 0.5s cubic-bezier(0.23,1,0.32,1);}
+.feature-item:hover::before{transform:scaleX(1);}
+.feature-item::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(78,205,196,0.05) 0%,transparent 60%);opacity:0;transition:opacity 0.3s;}
+.feature-item:hover::after{opacity:1;}
+.feature-item:hover{background:var(--bg3);transform:translateY(-2px);}
+.feature-icon{width:52px;height:52px;margin-bottom:24px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border-teal);border-radius:14px;color:var(--teal);transition:all 0.4s;position:relative;z-index:1;}
+.feature-item:hover .feature-icon{border-color:var(--teal);box-shadow:0 0 30px rgba(78,205,196,0.2),inset 0 0 20px rgba(78,205,196,0.05);transform:rotate(5deg);}
+.feature-item:nth-child(even) .feature-icon{border-color:var(--border-gold);color:var(--gold);}
+.feature-item:nth-child(even):hover .feature-icon{border-color:var(--gold);box-shadow:0 0 30px rgba(201,169,110,0.2);transform:rotate(-5deg);}
+.feature-item h4{font-size:18px;font-weight:600;margin-bottom:12px;color:var(--teal-light);position:relative;z-index:1;}
+.feature-item:nth-child(even) h4{color:var(--gold-light);}
+.feature-item p{color:rgba(242,237,230,0.5);font-size:14px;line-height:1.8;font-weight:300;position:relative;z-index:1;}
+
+/* HOW */
+.how{position:relative;z-index:1;padding:120px 60px;background:radial-gradient(ellipse at 20% 50%,rgba(78,205,196,0.05) 0%,transparent 60%);}
+.how-inner{max-width:1000px;margin:0 auto;}
+.steps-row{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:64px;position:relative;}
+.steps-row::before{content:'';position:absolute;top:32px;left:12%;right:12%;height:1px;background:linear-gradient(90deg,var(--teal),var(--gold));z-index:0;opacity:0.4;}
+.step-card{text-align:center;padding:0 20px;position:relative;z-index:1;}
+.step-circle{width:64px;height:64px;border-radius:50%;background:var(--bg2);border:1px solid var(--border-teal);display:flex;align-items:center;justify-content:center;margin:0 auto 24px;font-family:var(--font-display);font-size:16px;font-weight:600;color:var(--teal);transition:all 0.5s;position:relative;}
+.step-circle::after{content:'';position:absolute;inset:-4px;border-radius:50%;border:1px solid rgba(78,205,196,0.2);transform:scale(0.8);transition:all 0.4s;}
+.step-card:hover .step-circle{transform:scale(1.1);box-shadow:0 0 40px rgba(78,205,196,0.3);background:var(--bg3);}
+.step-card:hover .step-circle::after{transform:scale(1.1);}
+.step-card:nth-child(even) .step-circle{border-color:var(--border-gold);color:var(--gold);}
+.step-card:nth-child(even):hover .step-circle{box-shadow:0 0 40px rgba(201,169,110,0.3);}
+.step-card h4{font-size:15px;margin-bottom:10px;color:var(--text);font-family:var(--font-display);letter-spacing:0.05em;}
+.step-card p{color:rgba(242,237,230,0.45);font-size:13px;line-height:1.7;font-weight:300;}
+
+/* ABOUT */
+.about{position:relative;z-index:1;padding:120px 60px;background:radial-gradient(ellipse at 80% 50%,rgba(201,169,110,0.05) 0%,transparent 60%);}
+.about-inner{max-width:680px;margin:0 auto;text-align:center;}
+.about-inner h2{font-size:clamp(28px,3.5vw,44px);font-weight:300;margin-bottom:28px;}
+.about-inner h2 em{font-style:italic;color:var(--gold);}
+.about-inner p{color:var(--gold-light);font-size:16px;line-height:1.9;margin-bottom:20px;font-weight:300;}
+
+/* PLATFORMS */
+.platforms{position:relative;z-index:1;padding:80px 60px;border-top:1px solid var(--border-dim);border-bottom:1px solid var(--border-dim);}
+.platforms-label{text-align:center;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--text-dim);margin-bottom:40px;}
+.platforms-row{display:flex;justify-content:center;align-items:center;gap:60px;flex-wrap:wrap;}
+.platform-badge{display:flex;align-items:center;gap:12px;padding:12px 24px;border:1px solid var(--border-dim);border-radius:100px;font-size:12px;font-weight:600;letter-spacing:1px;color:var(--text-dim);transition:all 0.3s;}
+.platform-badge:hover{border-color:var(--border-teal);color:var(--teal);transform:translateY(-3px);}
+
+/* CTA */
+.cta-section{position:relative;z-index:1;padding:120px 60px;text-align:center;border-top:1px solid var(--border-gold);}
+.cta-section h2{font-size:clamp(32px,4vw,56px);font-weight:300;margin-bottom:20px;}
+.cta-section h2 em{font-style:italic;color:var(--teal);}
+.cta-section p{color:var(--gold-light);font-size:16px;margin-bottom:44px;font-weight:300;}
+
+/* FOOTER */
+footer{position:relative;z-index:1;padding:48px 60px;text-align:center;border-top:1px solid var(--border-dim);}
+.footer-logo{font-family:var(--font-display);font-size:20px;letter-spacing:4px;margin-bottom:16px;color:var(--text);display:block;}
+.footer-logo .accent{color:var(--teal);}
+footer p{color:var(--text-dim);font-size:12px;margin-bottom:14px;}
+footer a{color:var(--text-dim);text-decoration:none;margin:0 14px;transition:color 0.2s;font-size:12px;}
 footer a:hover{color:var(--teal);}
-@media(max-width:768px){.wp-header{padding:14px 20px;}.wp-nav{display:none;}}
 
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(48px);transition:opacity 0.9s ease,transform 0.9s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.reveal-delay-1{transition-delay:0.1s;}
+.reveal-delay-2{transition-delay:0.2s;}
+.reveal-delay-3{transition-delay:0.3s;}
+.reveal-delay-4{transition-delay:0.4s;}
+.reveal-left{opacity:0;transform:translateX(-48px);transition:opacity 0.9s ease,transform 0.9s ease;}
+.reveal-left.visible{opacity:1;transform:translateX(0);}
+.reveal-right{opacity:0;transform:translateX(48px);transition:opacity 0.9s ease,transform 0.9s ease;}
+.reveal-right.visible{opacity:1;transform:translateX(0);}
 
-/* PAGE SPECIFIC */
-.hero {
-  min-height: 100vh;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  text-align: center; padding: 120px 40px 80px;
-}
-.hero h1 {
-  font-size: clamp(52px, 7vw, 88px);
-  font-weight: 300;
-  line-height: 1.05;
-  margin-bottom: 28px;
-  letter-spacing: -0.01em;
-}
-.hero h1 em { font-style: italic; color: var(--teal); }
-.hero h1 strong { font-weight: 700; color: var(--gold); }
-.hero p { font-size: 17px; color: var(--gold-light); max-width: 520px; line-height: 1.8; margin: 0 auto 48px; font-weight: 300; }
-.hero-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(32px);}to{opacity:1;transform:translateY(0);}}
+@keyframes wordReveal{to{transform:translateY(0);opacity:1;}}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
 
-.features { padding: 100px 60px; }
-.features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 2px; max-width: 1100px; margin: 0 auto; background: var(--border-gold); border: 1px solid var(--border-gold); }
-.feature-item { background: var(--bg2); padding: 36px 32px; transition: background 0.3s; }
-.feature-item:hover { background: var(--bg3); }
-.feature-icon { width:44px;height:44px;margin-bottom:20px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border-teal);border-radius:10px;padding:9px; }
-.feature-item:nth-child(even) .feature-icon { border-color:var(--border-gold);color:var(--gold) !important; }
-.feature-item h4 { font-size: 20px; font-weight: 600; margin-bottom: 10px; color: var(--text); }
-.feature-item:nth-child(odd) h4 { color: var(--teal-light); }
-.feature-item:nth-child(even) h4 { color: var(--gold-light); }
-.feature-item p { color: var(--gold-light); font-size: 14px; line-height: 1.7; font-weight: 300; }
-
-.how { padding: 100px 60px; }
-.how-inner { max-width: 900px; margin: 0 auto; }
-.steps-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border-teal); border: 1px solid var(--border-teal); margin-top: 60px; }
-.step-card { background: var(--bg2); padding: 36px 28px; text-align: center; }
-.step-card:hover { background: var(--bg3); }
-.step-num { font-family: var(--font-display); font-size: 48px; font-weight: 300; color: var(--teal); opacity: 0.4; line-height: 1; margin-bottom: 16px; }
-.step-card:nth-child(even) .step-num { color: var(--gold); }
-.step-card h4 { font-size: 18px; margin-bottom: 10px; }
-.step-card p { color: var(--gold-light); font-size: 13px; line-height: 1.7; font-weight: 300; }
-
-.about { padding: 100px 60px; }
-.about-inner { max-width: 700px; margin: 0 auto; text-align: center; }
-.about-inner h2 { font-size: 42px; font-weight: 300; margin-bottom: 24px; }
-.about-inner h2 em { font-style: italic; color: var(--gold); }
-.about-inner p { color: var(--gold-light); font-size: 16px; line-height: 1.9; margin-bottom: 18px; font-weight: 300; }
-
-.cta-section { padding: 100px 60px; text-align: center; border-top: 1px solid var(--border-gold); border-bottom: 1px solid var(--border-teal); }
-.cta-section h2 { font-size: 52px; font-weight: 300; margin-bottom: 16px; }
-.cta-section h2 em { font-style: italic; color: var(--teal); }
-.cta-section p { color: var(--gold-light); font-size: 16px; margin-bottom: 40px; font-weight: 300; }
-
-footer { padding: 40px 60px; text-align: center; border-top: 1px solid var(--border-gold); }
-footer .footer-logo { font-family: var(--font-display); font-size: 20px; letter-spacing: 3px; margin-bottom: 16px; color: var(--text); }
-footer .footer-logo .accent { color: var(--teal); }
-footer p { color: var(--text-dim); font-size: 12px; margin-bottom: 12px; }
-footer a { color: var(--text-dim); text-decoration: none; margin: 0 12px; transition: color 0.2s; font-size: 12px; }
-footer a:hover { color: var(--teal); }
-
-@media (max-width: 768px) {
-  .features { padding: 60px 20px; }
-  .how { padding: 60px 20px; }
-  .about { padding: 60px 20px; }
-  .cta-section { padding: 60px 20px; }
-  .steps-row { grid-template-columns: repeat(2, 1fr); }
-  footer { padding: 30px 20px; }
-}
+/* MEDIA */
+@media(max-width:900px){.features-grid{grid-template-columns:repeat(2,1fr);}.steps-row{grid-template-columns:repeat(2,1fr);gap:40px;}.steps-row::before{display:none;}.stats-section{gap:40px;}}
+@media(max-width:600px){.wp-header{padding:16px 20px;}.wp-nav{display:none;}.features-grid{grid-template-columns:1fr;}.steps-row{grid-template-columns:1fr;}.features,.how,.about,.cta-section{padding:80px 20px;}.stats-section{padding:60px 20px;}.platforms{padding:60px 20px;}.platforms-row{gap:20px;}#cursor,#cursor-ring,#cursor-trail{display:none;}body{cursor:auto;}a,button{cursor:pointer;}}
   </style>
 </head>
 <body>
 
-<header class="wp-header">
+<canvas id="particles"></canvas>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+<div id="cursor-trail"></div>
+
+<header class="wp-header" id="header">
   <a href="index.html" class="wp-logo">
     <img src="AppLogo.jpg" alt="WhitePhoenix">
     White<span class="accent">Phoenix</span>
@@ -164,103 +196,162 @@ footer a:hover { color: var(--teal); }
     <a href="#features">Features</a>
     <a href="#how">How it works</a>
     <a href="#about">About</a>
-    <a href="waitlist.html" style="color:var(--teal);opacity:1;">Join Waitlist</a>
+    <a href="waitlist.html" class="nav-cta">Join Waitlist</a>
     <a href="privacy.html">Privacy</a>
     <a href="terms.html">Terms</a>
   </nav>
 </header>
 
-<div class="gold-rule"></div>
+<section class="hero">
+  <div class="hero-bg-orb orb-1"></div>
+  <div class="hero-bg-orb orb-2"></div>
 
-<section class="hero bg-glow-both fade-up">
-  <div class="badge badge-teal" style="margin-bottom:32px;">✦ Automated TikTok Publishing</div>
-  <h1>Post to TikTok<br>every day,<br><em>automatically</em></h1>
-  <p>WhitePhoenix connects to your TikTok account and publishes your videos on a precise daily schedule — so your content never stops, even when you do.</p>
+  <div class="hero-eyebrow">
+    <span class="eyebrow-dot"></span>
+    Automated Content Publishing
+  </div>
+
+  <h1 id="hero-title">
+    <span class="line">
+      <span class="word"><span style="animation-delay:0.7s">Post every day,</span></span>
+    </span>
+    <br>
+    <span class="line">
+      <span class="word"><span style="animation-delay:0.95s">to every platform,</span></span>
+    </span>
+    <br>
+    <span class="line">
+      <span class="word"><span style="animation-delay:1.2s"><em>automatically.</em></span></span>
+    </span>
+  </h1>
+
+  <p class="hero-sub">WhitePhoenix posts to YouTube, Instagram, Facebook, and TikTok — twice a day, every day — without you ever touching it.</p>
+
   <div class="hero-btns">
     <a href="connect.html" class="btn btn-teal">Connect with TikTok</a>
     <a href="waitlist.html" class="btn btn-gold">Join the Waitlist</a>
-    <a href="#how" class="btn btn-outline-gold">See how it works</a>
+    <a href="#how" class="btn btn-ghost">See how it works</a>
+  </div>
+
+  <div class="scroll-indicator">
+    <span class="scroll-label">Scroll</span>
+    <div class="scroll-line"></div>
   </div>
 </section>
 
-<div class="section-divider"></div>
+<div class="gold-rule"></div>
 
-<section class="features bg-glow-gold" id="features">
-  <p class="section-eyebrow" style="text-align:center;">What we offer</p>
-  <h2 style="font-family:var(--font-display);font-size:40px;font-weight:300;text-align:center;margin-bottom:60px;">Everything you need to grow on <em style="font-style:italic;color:var(--teal);">TikTok</em></h2>
+<div class="stats-section">
+  <div class="stat reveal">
+    <span class="stat-num" data-target="1721">0</span>
+    <span class="stat-lbl">Videos queued</span>
+  </div>
+  <div class="stat reveal reveal-delay-1">
+    <span class="stat-num" data-target="4">0</span>
+    <span class="stat-lbl">Platforms automated</span>
+  </div>
+  <div class="stat reveal reveal-delay-2">
+    <span class="stat-num" data-target="2" data-suffix="×">0</span>
+    <span class="stat-lbl">Daily posts</span>
+  </div>
+  <div class="stat reveal reveal-delay-3">
+    <span class="stat-num" data-label="Zero">Zero</span>
+    <span class="stat-lbl">Manual effort</span>
+  </div>
+</div>
+
+<div class="gold-rule"></div>
+
+<section class="features" id="features">
+  <span class="section-eyebrow reveal">What we offer</span>
+  <h2 class="section-title reveal reveal-delay-1">Everything you need to grow on <em>every platform</em></h2>
   <div class="features-grid">
-    <div class="feature-item fade-up-1">
-      <span class="feature-icon" style="color:var(--teal);"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span>
+
+    <div class="feature-item reveal">
+      <span class="feature-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      </span>
       <h4>Daily Scheduling</h4>
       <p>Set your posting times once. WhitePhoenix handles the rest — every single day, without exception.</p>
     </div>
-    <div class="feature-item fade-up-2">
-      <span class="feature-icon" style="color:var(--teal);"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></span>
+
+    <div class="feature-item reveal reveal-delay-1">
+      <span class="feature-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+      </span>
       <h4>Auto Posting</h4>
-      <p>Connect via OAuth and publish directly through TikTok's official Content Posting API.</p>
+      <p>Connect via OAuth and publish directly through official platform APIs — no third-party tools.</p>
     </div>
-    <div class="feature-item fade-up-3">
-      <span class="feature-icon" style="color:var(--teal);"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></span>
+
+    <div class="feature-item reveal reveal-delay-2">
+      <span class="feature-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+      </span>
       <h4>Caption Management</h4>
-      <p>Set custom captions and hashtags per video. Applied automatically on every post.</p>
+      <p>Custom captions and hashtags per platform, per video — applied automatically on every post.</p>
     </div>
-    <div class="feature-item fade-up-4">
-      <span class="feature-icon" style="color:var(--teal);"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+
+    <div class="feature-item reveal reveal-delay-1">
+      <span class="feature-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      </span>
       <h4>Secure & Private</h4>
-      <p>Your credentials are never stored. We use TikTok's official Login Kit OAuth 2.0 exclusively.</p>
+      <p>Your credentials are never stored. We use official OAuth 2.0 on every platform, exclusively.</p>
     </div>
-    <div class="feature-item fade-up-1">
-      <span class="feature-icon" style="color:var(--teal);"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span>
+
+    <div class="feature-item reveal reveal-delay-2">
+      <span class="feature-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      </span>
       <h4>Queue Management</h4>
-      <p>Upload your full video library. WhitePhoenix cycles through in randomized order automatically.</p>
+      <p>Upload your full video library. WhitePhoenix cycles through in randomized order, forever.</p>
     </div>
-    <div class="feature-item fade-up-2">
-      <span class="feature-icon" style="color:var(--teal);"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></span>
-      <h4>Consistent Growth</h4>
-      <p>Consistency is the #1 TikTok growth factor. Never miss a day, even when life gets busy.</p>
-    </div>
-    <div class="feature-item fade-up-3">
-      <span class="feature-icon" style="color:var(--teal);"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></span>
-      <h4>Meta Platform Ready</h4>
-      <p>Built to expand across Instagram Reels and Facebook video — full Meta API compliance.</p>
-    </div>
-    <div class="feature-item fade-up-4">
-      <span class="feature-icon" style="color:var(--teal);"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg></span>
-      <h4>YouTube Shorts</h4>
-      <p>Publish to YouTube Shorts via the official YouTube Data API — reaching millions automatically.</p>
-    </div>
-    <div class="feature-item fade-up-1">
-      <span class="feature-icon" style="color:var(--teal);"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
+
+    <div class="feature-item reveal reveal-delay-3">
+      <span class="feature-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      </span>
       <h4>All Platforms, One System</h4>
-      <p>Post simultaneously to YouTube, Instagram, Facebook, and TikTok — one video, every platform, every day, fully automated.</p>
+      <p>YouTube, Instagram, Facebook, TikTok — one video, every platform, every day, fully automated.</p>
     </div>
+
   </div>
 </section>
 
-<div class="section-divider"></div>
+<div class="gold-rule"></div>
 
-<section class="how bg-glow-teal" id="how">
+<div class="platforms">
+  <p class="platforms-label">Posting to every major platform</p>
+  <div class="platforms-row">
+    <div class="platform-badge">▶ YouTube Shorts</div>
+    <div class="platform-badge">◈ Instagram Reels</div>
+    <div class="platform-badge">⬡ Facebook Reels</div>
+    <div class="platform-badge">♪ TikTok</div>
+  </div>
+</div>
+
+<section class="how" id="how">
   <div class="how-inner">
-    <p class="section-eyebrow" style="text-align:center;">Simple process</p>
-    <h2 style="font-family:var(--font-display);font-size:40px;font-weight:300;text-align:center;">How it <em style="font-style:italic;color:var(--gold);">works</em></h2>
+    <span class="section-eyebrow reveal">Simple process</span>
+    <h2 class="section-title reveal reveal-delay-1">How it <em style="color:var(--gold);">works</em></h2>
     <div class="steps-row">
-      <div class="step-card fade-up-1">
-        <div class="step-num">01</div>
-        <h4>Connect TikTok</h4>
-        <p>Authorize WhitePhoenix with your TikTok account via secure OAuth login.</p>
+      <div class="step-card reveal">
+        <div class="step-circle">01</div>
+        <h4>Connect Accounts</h4>
+        <p>Authorize WhitePhoenix with your social accounts via secure OAuth login.</p>
       </div>
-      <div class="step-card fade-up-2">
-        <div class="step-num">02</div>
+      <div class="step-card reveal reveal-delay-1">
+        <div class="step-circle">02</div>
         <h4>Upload Videos</h4>
-        <p>Add your video library and set captions and hashtags for each post.</p>
+        <p>Add your video library and set captions and hashtags for each platform.</p>
       </div>
-      <div class="step-card fade-up-3">
-        <div class="step-num">03</div>
+      <div class="step-card reveal reveal-delay-2">
+        <div class="step-circle">03</div>
         <h4>Set Schedule</h4>
-        <p>Choose your posting times. Morning, evening, or both — every day.</p>
+        <p>Choose your posting times — morning, evening, or both, every single day.</p>
       </div>
-      <div class="step-card fade-up-4">
-        <div class="step-num">04</div>
+      <div class="step-card reveal reveal-delay-3">
+        <div class="step-circle">04</div>
         <h4>Grow on Autopilot</h4>
         <p>WhitePhoenix posts automatically every day. Zero daily effort required.</p>
       </div>
@@ -268,29 +359,32 @@ footer a:hover { color: var(--teal); }
   </div>
 </section>
 
-<div class="section-divider"></div>
+<div class="gold-rule"></div>
 
-<section class="about bg-glow-gold" id="about">
+<section class="about" id="about">
   <div class="about-inner">
-    <p class="section-eyebrow">About the platform</p>
-    <h2>Built for <em>serious</em> content creators</h2>
-    <p>WhitePhoenix is a video scheduling and automation platform built for TikTok creators who want to grow their audience consistently — without spending hours every day on manual posting.</p>
-    <p>We connect directly to TikTok's official Content Posting API, ensuring your account stays safe and compliant while your content goes live on schedule, every single day.</p>
-    <p>Whether you're a lifestyle creator, a brand, or an entrepreneur building a faceless content page — WhitePhoenix gives you the infrastructure to stay consistent and grow.</p>
+    <span class="section-eyebrow reveal">About the platform</span>
+    <h2 class="reveal reveal-delay-1">Built for <em>serious</em> content creators</h2>
+    <p class="reveal reveal-delay-2">WhitePhoenix is a video scheduling and automation platform built for creators who want to grow consistently — without spending hours every day on manual posting.</p>
+    <p class="reveal reveal-delay-3">We connect directly to YouTube, Instagram, Facebook and TikTok's official APIs, ensuring your account stays safe and compliant while your content goes live on schedule, every single day.</p>
+    <p class="reveal reveal-delay-4">Whether you're a lifestyle creator, a brand, or an entrepreneur building a faceless content page — WhitePhoenix gives you the infrastructure to stay consistent and grow.</p>
   </div>
 </section>
 
-<div class="section-divider"></div>
+<div class="gold-rule"></div>
 
-<section class="cta-section bg-glow-both">
-  <p class="section-eyebrow">Get started</p>
-  <h2>Ready to grow your <em>TikTok?</em></h2>
-  <p>Join creators who post consistently and grow their audience on autopilot.</p>
-  <a href="connect.html" class="btn btn-teal">Connect with TikTok</a>
+<section class="cta-section">
+  <span class="section-eyebrow reveal">Get started</span>
+  <h2 class="reveal reveal-delay-1">Ready to grow your <em>audience?</em></h2>
+  <p class="reveal reveal-delay-2">Join creators who post consistently and grow their audience on autopilot.</p>
+  <div class="hero-btns reveal reveal-delay-3">
+    <a href="connect.html" class="btn btn-teal">Connect with TikTok</a>
+    <a href="waitlist.html" class="btn btn-gold">Join the Waitlist</a>
+  </div>
 </section>
 
 <footer>
-  <div class="footer-logo">White<span class="accent">Phoenix</span></div>
+  <span class="footer-logo">White<span class="accent">Phoenix</span></span>
   <p>&copy; 2026 WhitePhoenix. All rights reserved.</p>
   <div>
     <a href="privacy.html">Privacy Policy</a>
@@ -299,5 +393,130 @@ footer a:hover { color: var(--teal); }
   </div>
 </footer>
 
+<script>
+/* ---- CURSOR ---- */
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+const trail = document.getElementById('cursor-trail');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  cursor.style.left=mx+'px';cursor.style.top=my+'px';
+  trail.style.left=mx+'px';trail.style.top=my+'px';
+});
+(function animRing(){
+  rx+=(mx-rx)*0.1;ry+=(my-ry)*0.1;
+  ring.style.left=rx+'px';ring.style.top=ry+'px';
+  requestAnimationFrame(animRing);
+})();
+document.querySelectorAll('a,button,.feature-item,.step-card,.stat,.platform-badge').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{
+    cursor.style.width='16px';cursor.style.height='16px';cursor.style.background='var(--gold)';
+    ring.style.width='56px';ring.style.height='56px';ring.style.borderColor='rgba(201,169,110,0.4)';
+  });
+  el.addEventListener('mouseleave',()=>{
+    cursor.style.width='8px';cursor.style.height='8px';cursor.style.background='var(--teal)';
+    ring.style.width='36px';ring.style.height='36px';ring.style.borderColor='rgba(78,205,196,0.5)';
+  });
+});
+
+/* ---- FEATURE ITEM MOUSE GLOW ---- */
+document.querySelectorAll('.feature-item').forEach(el=>{
+  el.addEventListener('mousemove',e=>{
+    const rect=el.getBoundingClientRect();
+    const x=((e.clientX-rect.left)/rect.width*100).toFixed(1);
+    const y=((e.clientY-rect.top)/rect.height*100).toFixed(1);
+    el.style.setProperty('--mx',x+'%');
+    el.style.setProperty('--my',y+'%');
+  });
+});
+
+/* ---- PARTICLES ---- */
+const canvas=document.getElementById('particles');
+const ctx=canvas.getContext('2d');
+function resize(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
+resize();
+window.addEventListener('resize',resize);
+const N=90;
+const pts=[];
+const cols=['rgba(78,205,196,','rgba(201,169,110,'];
+for(let i=0;i<N;i++){
+  pts.push({
+    x:Math.random()*canvas.width,y:Math.random()*canvas.height,
+    vx:(Math.random()-.5)*.25,vy:(Math.random()-.5)*.25,
+    r:Math.random()*1.2+.2,
+    col:cols[i%2],
+    a:Math.random()*.3+.08,
+    ph:Math.random()*Math.PI*2
+  });
+}
+let pmx=0,pmy=0;
+window.addEventListener('mousemove',e=>{pmx=e.clientX;pmy=e.clientY;});
+(function draw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  pts.forEach(p=>{
+    p.ph+=.015;
+    const a=p.a+Math.sin(p.ph)*.08;
+    const dx=pmx-p.x,dy=pmy-p.y,d=Math.sqrt(dx*dx+dy*dy);
+    if(d<160){p.vx-=dx/d*.018;p.vy-=dy/d*.018;}
+    p.vx*=.992;p.vy*=.992;
+    p.x+=p.vx;p.y+=p.vy;
+    if(p.x<0)p.x=canvas.width;if(p.x>canvas.width)p.x=0;
+    if(p.y<0)p.y=canvas.height;if(p.y>canvas.height)p.y=0;
+    ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle=p.col+a+')';ctx.fill();
+  });
+  for(let i=0;i<N;i++)for(let j=i+1;j<N;j++){
+    const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);
+    if(d<110){
+      ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);
+      ctx.strokeStyle='rgba(78,205,196,'+(0.055*(1-d/110))+')';
+      ctx.lineWidth=.4;ctx.stroke();
+    }
+  }
+  requestAnimationFrame(draw);
+})();
+
+/* ---- HEADER SCROLL ---- */
+const header=document.getElementById('header');
+window.addEventListener('scroll',()=>header.classList.toggle('scrolled',scrollY>60));
+
+/* ---- SCROLL REVEAL ---- */
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.12});
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el=>obs.observe(el));
+
+/* ---- COUNTERS ---- */
+function counter(el,target,suffix,dur=1800){
+  if(!target&&target!==0){return;}
+  let s=null;
+  (function step(ts){
+    if(!s)s=ts;
+    const p=Math.min((ts-s)/dur,1);
+    const e=1-Math.pow(1-p,4);
+    el.textContent=Math.floor(e*target).toLocaleString()+(suffix||'');
+    if(p<1)requestAnimationFrame(step);
+    else el.textContent=target.toLocaleString()+(suffix||'');
+  })(performance.now());
+}
+const cobs=new IntersectionObserver(entries=>entries.forEach(e=>{
+  if(e.isIntersecting){
+    const el=e.target;
+    const t=parseInt(el.dataset.target);
+    if(!isNaN(t))counter(el,t,el.dataset.suffix||'');
+    cobs.unobserve(el);
+  }
+}),{threshold:.5});
+document.querySelectorAll('.stat-num[data-target]').forEach(el=>cobs.observe(el));
+
+/* ---- STEP CIRCLE PULSE ON SCROLL ---- */
+const stepObs=new IntersectionObserver(entries=>entries.forEach(e=>{
+  if(e.isIntersecting){
+    e.target.querySelectorAll('.step-circle').forEach((c,i)=>{
+      setTimeout(()=>{c.style.boxShadow='0 0 30px rgba(78,205,196,0.4)';setTimeout(()=>c.style.boxShadow='',600);},i*200);
+    });
+  }
+}),{threshold:.3});
+document.querySelectorAll('.steps-row').forEach(el=>stepObs.observe(el));
+</script>
 </body>
 </html>
