@@ -811,6 +811,27 @@ window.addEventListener('scroll',function(){
 
 /* waves animated directly */
 
+/* HOW IT WORKS - auto cycle + click */
+var howSteps = document.querySelectorAll('.how-step');
+var howVids = ['luxury_lifestyle_042.mp4','wealth_motivation_078.mp4','exotic_cars_lifestyle.mp4','success_mindset_113.mp4'];
+var howActive = 0;
+function setHowStep(idx){
+  howActive = idx;
+  howSteps.forEach(function(s){ s.classList.remove('active'); });
+  if(howSteps[howActive]) howSteps[howActive].classList.add('active');
+  var dv = document.getElementById('dash-vid');
+  if(dv) dv.textContent = howVids[howActive] || '';
+}
+howSteps.forEach(function(s){
+  s.addEventListener('click', function(){
+    setHowStep(parseInt(s.getAttribute('data-step')));
+  });
+});
+if(howSteps.length > 0){
+  setHowStep(0);
+  setInterval(function(){ setHowStep((howActive + 1) % howSteps.length); }, 3000);
+}
+
 var rStyle=document.createElement('style');
 rStyle.textContent='@keyframes rip{0%{width:0;height:0;opacity:1;}100%{width:140px;height:140px;opacity:0;}}';
 document.head.appendChild(rStyle);
